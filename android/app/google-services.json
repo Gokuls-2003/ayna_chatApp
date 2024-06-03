@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "816275666851",
+    "project_id": "agna-chatapp",
+    "storage_bucket": "agna-chatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816275666851:android:7ba50a3a799706cc2e8c16",
+        "android_client_info": {
+          "package_name": "com.example.ayna_chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqjTXejISMlzh1ffcFCVkmlQjXxXmyJTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
