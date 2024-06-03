@@ -43,6 +43,7 @@ dependencies:
 
   user_repository:
     path: packages/user_repository
+  web_socket_channel: ^3.0.0
 
 dev_dependencies:
   flutter_test:

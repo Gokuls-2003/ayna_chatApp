@@ -8,3 +8,11 @@ sealed class SigninBlocState extends Equatable {
 }
 
 final class SigninBlocInitial extends SigninBlocState {}
+
+class SignInSuccess extends SigninBlocState {}
+class SignInFailure extends SigninBlocState {
+	final String? message;
+
+	const SignInFailure({this.message});
+}
+class SignInProcess extends SigninBlocState {}
