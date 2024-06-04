@@ -1,1 +1,39 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"agna-chatapp","appId":"1:816275666851:android:7ba50a3a799706cc2e8c16","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"agna-chatapp","configurations":{"android":"1:816275666851:android:7ba50a3a799706cc2e8c16","ios":"1:816275666851:ios:394a93ef01eb2cca2e8c16","macos":"1:816275666851:ios:394a93ef01eb2cca2e8c16","web":"1:816275666851:web:494ab6e9e5dd0a7a2e8c16","windows":"1:816275666851:web:f076d325ceb04e472e8c16"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "agna-chatapp",
+          "appId": "1:816275666851:android:7ba50a3a799706cc2e8c16",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "agna-chatapp",
+          "configurations": {
+            "android": "1:816275666851:android:7ba50a3a799706cc2e8c16",
+            "ios": "1:816275666851:ios:394a93ef01eb2cca2e8c16",
+            "macos": "1:816275666851:ios:394a93ef01eb2cca2e8c16",
+            "web": "1:816275666851:web:494ab6e9e5dd0a7a2e8c16",
+            "windows": "1:816275666851:web:f076d325ceb04e472e8c16"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
