@@ -100,15 +100,12 @@ class _SignInScreenState extends State<SignInScreen> {
               ? SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextButton(
-                      onPressed: signInRequired
-                          ? null
-                          : () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<SigninBlocBloc>().add(
-                                    SignInRequired(emailController.text,
-                                        passwordController.text));
-                              }
-                            },
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<SigninBlocBloc>().add(SignInRequired(
+                              emailController.text, passwordController.text));
+                        }
+                      },
                       style: TextButton.styleFrom(
                           elevation: 3.0,
                           backgroundColor:

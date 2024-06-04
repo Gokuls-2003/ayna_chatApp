@@ -4,6 +4,7 @@ import 'package:ayna_chatapp/screens/auth/welcome.dart';
 import 'package:ayna_chatapp/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MyAppView extends StatelessWidget {
   const MyAppView({super.key});
@@ -29,9 +30,11 @@ class MyAppView extends StatelessWidget {
           if (state.status == AuthenticationStatus.authenticated) {
             return BlocProvider(
               create: (context) => SigninBlocBloc(
-                userRepository: context.read<AuthenticationBloc>().userRepository
-              ),
-              child: const HomeScreen(),
+                  userRepository:
+                      context.read<AuthenticationBloc>().userRepository),
+              child: HomeScreen(
+                  channel: WebSocketChannel.connect(
+                      Uri.parse('wss://echo.websocket.org'))),
             );
           } else {
             return const WelcomeScreen();
@@ -39,3 +42,4 @@ class MyAppView extends StatelessWidget {
         }));
   }
 }
+ //webSocketChannel.connect('wss://echo.websocket.org')

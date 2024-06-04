@@ -1,16 +1,20 @@
-import 'package:ayna_chatapp/bloc/chat_bloc/chat_bloc.dart';
-import 'package:ayna_chatapp/bloc/chat_bloc/chat_event.dart';
-import 'package:ayna_chatapp/bloc/chat_bloc/chat_state.dart';
 import 'package:ayna_chatapp/bloc/signin_bloc/signin_bloc_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  final WebSocketChannel channel;
+  const HomeScreen({super.key, required this.channel});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController editingController = new TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Welcome, you are In !'),
@@ -22,49 +26,63 @@ class HomeScreen extends StatelessWidget {
               icon: Icon(Icons.login))
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: BlocBuilder<ChatBloc, ChatState>(
-              builder: (context, state) {
-                return ListView.builder(
-                  itemCount: state.messages.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(state.messages[index]),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      labelText: 'Send a message',
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    final message = _controller.text;
-                    if (message.isNotEmpty) {
-                      BlocProvider.of<ChatBloc>(context).add(SendMessage(message));
-                      _controller.clear();
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+      body: new Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Form(
+                child: TextFormField(
+              decoration: InputDecoration(labelText: "Send any Message"),
+              controller: editingController,
+            )),
+            StreamBuilder(
+                stream: widget.channel.stream,
+                builder: (context, snapshot) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(snapshot.hasData ? '${snapshot.data}' : " "),
+                  );
+                })
+          ],
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: _sendMyMessage,
+        child: new Icon(Icons.send),
       ),
     );
   }
+
+  void _sendMyMessage() {
+    if (editingController.text.isNotEmpty) {
+      widget.channel.sink.add(editingController.text);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.channel.sink.close();
+    super.dispose();
+  }
 }
+
+// import 'package:flutter/material.dart';
+
+// class HomeScreen extends StatefulWidget {
+//  const HomeScreen({super.key});
+
+//  @override
+//  State<HomeScreen> createState() => _HomeScreenState();
+// }
+
+// class _HomeScreenState extends State<HomeScreen> {
+//  @override
+//  Widget build(BuildContext context) {
+//   return Scaffold(
+//    body: Column(
+//     children: [Text("Hi,")],
+//    ),
+//   );
+//  }
+// }
